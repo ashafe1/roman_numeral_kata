@@ -1,4 +1,8 @@
 class RomanNumeralGenerator
+  attr_accessor :number
+  private :number
+
+  UnsupportedNumberError = Class.new(StandardError)
 
   def initialize(number)
     @number = number
@@ -9,13 +13,26 @@ class RomanNumeralGenerator
   end
 
   def generate
+    if valid_number?
+      calculate_numeral
+    else
+      fail UnsupportedNumberError,
+        "Please provide an integer between 1 and 3999."
+    end
+  end
+
+  private
+
+  def valid_number?
+    number.between?(1, 3999)
+  end
+
+  def calculate_numeral
     roman_numeral_combinations.each_with_object('') do |(key, symbol), string|
       quotient, @number = @number.divmod(key)
       string << symbol*quotient
     end
   end
-
-  private
 
   def roman_numeral_combinations
     {

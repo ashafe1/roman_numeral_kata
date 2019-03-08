@@ -35,5 +35,14 @@ RSpec.describe RomanNumeralGenerator do
         it { is_expected.to eq('MMMCMXCIX') }
       end
     end
+
+    context 'when the number is unsupported' do
+      let(:number) { 4000 }
+
+      it 'raises an UnsupportedNumberError' do
+        expect { generate }.
+          to raise_error(RomanNumeralGenerator::UnsupportedNumberError)
+      end
+    end
   end
 end

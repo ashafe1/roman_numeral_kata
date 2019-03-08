@@ -1,3 +1,5 @@
+require_relative '../roman_numeral_generator'
+
 RSpec.describe RomanNumeralGenerator do
   describe '.generate' do
     subject(:generate) { RomanNumeralGenerator.generate(number) }
